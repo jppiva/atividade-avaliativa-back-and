@@ -1,6 +1,7 @@
 
 import express from "express";
 import dotenv from "dotenv";
+import streamingTableRoutes from "./src/routes/streamingRoutes.js"
 
 const app = express();
 app.use(express.json());
@@ -12,7 +13,7 @@ app.get("/", (req, res) => {
     res.send("🚀 Servidor funcionando...");
 });
 
-
+app.use("/streamingTable", streamingTableRoutes )
 
 
 app.listen(serverPort, () => {
