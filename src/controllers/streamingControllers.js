@@ -10,20 +10,31 @@ const getAllStreamingTable = (req, res) => {
     });
 };
 
-const getStreamingTableById = (req, res) => {
-    const id = parseInt(req.params.id);
-    const streamingTable = streamingTable.find(s => s.id === id);
 
-    if (!streamingTable) {
+const getStreamingTableById = (req, res) => {
+    const { id } = req.params;
+
+   
+    if (isNaN(id)) {
+        return res.status(400).json({
+            success: false,
+            message: "ID deve ser um número válido!"
+        });
+    }
+
+    
+    const streaming = streamingTable.find(b => b.id === parseInt(id));
+
+    if (!streaming) {
         return res.status(404).json({
-            success:false,
-            message:`anime não encontrado, ${id}`
+            success: false,
+            message: "streaming não encontrado nos registros de Hogwarts!"
         });
     }
 
     res.status(200).json({
-        success:true,
-        data: streamingTable
+        success: true,
+        streaming: streaming
     });
 };
 
